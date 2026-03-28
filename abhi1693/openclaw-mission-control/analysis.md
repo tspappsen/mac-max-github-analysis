@@ -7,15 +7,14 @@
 OpenClaw Mission Control is a **centralized control plane for operating fleets of LLM-powered agents**. It solves the hard operational problems that arise past a single agent:
 
 - Multi-agent coordination across boards, groups, and gateways
-- Human-in-the-loop  approval flows that gate agent actions before executiongovernance 
-- Agent lifecycle  provision, wake, monitor, and deprovision agents with heartbeat liveness trackingmanagement 
- tags
-- Multi-scope persistent  board-level and group-level tagged context storesmemory 
-- Skills  install/update skill packs on agents at runtimemarketplace 
-- Souls  browse and fetch agent persona templates from `souls.directory` (public registry)directory 
-- Board  inbound HTTP endpoints routing external events directly to agentswebhooks 
-- Cron  proactive agent behaviors triggered on schedule from the control planescheduling 
-- Activity audit  immutable event stream for all board/task/agent actionsfeed 
+- Human-in-the-loop approval flows that gate agent actions before execution
+- Agent lifecycle management: provision, wake, monitor, and deprovision agents with heartbeat liveness tracking
+- Multi-scope persistent memory: board-level and group-level tagged context stores
+- Skills marketplace: install/update skill packs on agents at runtime
+- Souls directory: browse and fetch agent persona templates from `souls.directory` (public registry)
+- Board webhooks: inbound HTTP endpoints routing external events directly to agents
+- Cron scheduling: proactive agent behaviors triggered on schedule from the control plane
+- Activity audit feed: immutable event stream for all board/task/agent actions
 
 Think of it as Kubernetes for AI  not the runtime itself, but the operator surface that manages fleets of agents running in external OpenClaw Gateway processes.agents 
 
@@ -24,14 +23,14 @@ Think of it as Kubernetes for AI  not the runtime itself, but the operator surfa
 ### Three-tier agent hierarchy
 
 - **`agent-main`** (Gateway Main): One per gateway, no board assignment. Orchestrates across all boards, broadcasts to board leads, relays user messages via Slack/SMS, handles provisioning requests. Has exclusive `agent-main`-tagged API endpoints.
-- **`agent-lead`** (Board Lead): One per board. Owns board-level  assigns tasks, enforces board rules, manages workers, creates/retires specialists, handles approvals. Has exclusive `agent-lead` API endpoints.coordination 
- review` tasks. Read board memory and group memory for context.
+- **`agent-lead`** (Board Lead): One per board. Owns board-level  assigns tasks, enforces board rules, manages workers, creates/retires specialists, handles approvals.coordination 
+ review` states. Read board memory and group memory for context.
 
 Role enforcement is structural, not convention: `OpenClawAuthorizationPolicy` checks `is_board_lead`, `board_id`, and `openclaw_session_id` bindings at the API layer. Workers literally cannot call lead endpoints.
 
 ### Gateway  how agents are actually wiredRPC 
 
-Agents don't run inside Mission Control. They live in an external **OpenClaw Gateway** (WebSocket-based runtime). Mission Control communicates via `gateway_rpc. a typed WebSocket JSON-RPC client with ~60+ methods:py` 
+Agents don't run inside Mission Control. They live in an external **OpenClaw Gateway** (WebSocket-based runtime). Mission Control communicates via `gateway_rpc.py`, a typed WebSocket JSON-RPC client with ~60+ methods:
 
 ```python
 await openclaw_call("agents.files.set", {"agentId": key, "name": "SOUL.md", "content": ...})
@@ -47,7 +46,7 @@ Mission Control is the operator controller; the gateway hosts the actual LLM ses
 
 `provisioning.py` uses Jinja2 to render agent workspace files and push them to the gateway via `agents.files.set`. The template map:
 
- review`), board rule injections, and explicit self-directed OpenAPI discovery instructions
+- `HEARTBEAT.md. primary "system prompt": heartbeat loop, pre-flight checks, role-specific task loop (lead vs worker), board rules injection, and explicit self-directed OpenAPI discovery instructionsj2` 
 - `IDENTITY.md. injects `agent_name`, `identity_role`, `identity_communication_style`, `identity_emoji`, `identity_purpose`, `identity_personality`, `identity_custom_instructions`j2` 
 - `TOOLS.md. injects `BASE_URL`, `AUTH_TOKEN`, `AGENT_ID`, `BOARD_ID`, `WORKSPACE_ROOT`, and jq-based API discovery filtered by role tagj2` 
 - `SOUL.md. persistent identity and values. Default text: *"You're not a chatbot. You're becoming someone."*j2` 
@@ -74,10 +73,10 @@ This is a deliberate **schema-as-agent-interface** pattern. The API spec doubles
 
 ### Memory architecture
 
-- **Board  `board_memory` table; tagged text entries with `is_chat` flag; SSE streaming at 2s intervals; agents write back via `POST /api/v1/agent/boards/{board_id}/memory`Memory** 
-- **Board Group  same structure scoped to a group; shared across related boardsMemory** 
-- **Gateway workspace  `MEMORY.md` and `SOUL.md` in the agent's filesystem; durable, agent-owned long-term memory that persists across sessionsfiles** 
-- **Agent  `identity_profile` (JSON), `identity_template`, `soul_template`, `heartbeat_config`, `last_seen_at`, `lifecycle_generation`state** 
+- **Board Memory**: `board_memory` table; tagged text entries with `is_chat` flag; SSE streaming at 2s intervals; agents write back via `POST /api/v1/agent/boards/{board_id}/memory`
+- **Board Group Memory**: same structure scoped to a group; shared across related boards
+- **Gateway workspace files**: `MEMORY.md` and `SOUL.md` in the agent's filesystem; durable, agent-owned long-term memory that persists across sessions
+- **Agent state**: `identity_profile` (JSON), `identity_template`, `soul_template`, `heartbeat_config`, `last_seen_at`, `lifecycle_generation`
 
 Memory flows both ways: Mission Control pushes context at provision time; agents write back. This is filesystem-backed long-term memory with explicit agent-ownership semantics.
 
@@ -127,38 +126,36 @@ openclaw-mission-control/
  device_identity.py   # Ed25519 key pairs              
  migrations/        # Alembic revisions   
  templates/         # Jinja2 agent workspace templates   
- BOARD_HEARTBEAT.md.j2        # Primary "system prompt"       
+ BOARD_HEARTBEAT.md.j2   # Primary "system prompt"       
  BOARD_IDENTITY.md.j2       
  BOARD_SOUL.md.j2       
  BOARD_MEMORY.md.j2       
  BOARD_TOOLS.md.j2       
  frontend/
- src/   
- app/           # Next.js App Router pages       
- components/    # Atomic Design components       
- lib/           # Hooks, utils, agent-templates.ts       
- api/generated/ # Auto-generated TypeScript API client (orval)       
- compose.yml
- install.sh
+ src/    
+ app/           # Next.js App Router pages        
+ components/    # Atomic Design components        
+ lib/           # Hooks, utils, agent-templates.ts        
+ api/generated/ # Auto-generated TypeScript API client (orval)        
 ```
 
 ## 5. Tech Stack
 
-- **Backend**: Python 3.12+, FastAPI 0.131, SQLModel + SQLAlchemy (async), PostgreSQL 16, Alembic, Redis 7 + RQ, websockets, sse-starlette, Jinja2, Pydantic v2, Cryptography (Ed25519), uv package manager
- TS client codegen), Vitest + Testing Library, Cypress
+- **Backend**: Python 3.12+, FastAPI 0.131, SQLModel + SQLAlchemy (async), PostgreSQL 16, Alembic, Redis 7 + RQ, websockets, sse-starlette, Jinja2, Pydantic v2, Cryptography (Ed25519), uv
+- **Frontend**: Next.js 15 (App Router), TypeScript, Tailwind CSS, orval (TS client codegen), Vitest + Testing Library, Cypress
 - **Tooling**: Black + isort + ruff + flake8 + strict mypy (backend); ESLint + Prettier (frontend); Docker Compose
 - **External**: OpenClaw Gateway (WebSocket runtime, not in this repo), `souls.directory` (public agent persona registry)
 
 ## 6. Patterns Worth Borrowing
 
-- **Schema-as-agent-interface**: Annotate OpenAPI operations with `x-llm-intent`, `x-when-to-use`, `x-required-actor`. Agents fetch the live spec and filter by role tag to discover capabilities at  no hardcoded endpoint lists.runtime 
+- **Schema-as-agent-interface**: Annotate API operations with `x-llm-intent`, `x-when-to-use`, `x-required-actor`. Agents fetch the live spec and filter by role tag to discover capabilities at runtime; no hardcoded endpoint lists.
 - **Markdown workspace files as system prompts**: Separate agent identity (JSON config) from rendered instructions (Jinja2 markdown). Update behavior by updating files, not code.
 - **Multi-scope memory with ownership semantics**: Board memory (human-visible, tagged), group memory (shared across teams), and agent-owned `MEMORY.md` / `SOUL.md` files the agent updates itself. Three distinct layers, each with different access patterns.
- resolution propagated back to gateway session. Structurally gates state transitions.
+- **Structural approval circuit**: Human-in-the-loop approvals requested by agents, held in a queue, with resolution propagated back to the gateway session. Structurally gates state transitions.
 - **Three-tier agent hierarchy with API-level role enforcement**: Main/Lead/Worker roles enforced via API tag namespaces, not just convention. The gateway discovers its allowed endpoints from the spec.
 - **Board webhooks as external trigger channel**: Per-board inbound HTTP endpoints with HMAC verification routed to specific agents. Any external system can wake or task an agent.
 - **Lifecycle reconciliation via background queue**: State machine + Redis RQ for eventual consistency across distributed agent lifecycle events.
-- **`SOUL.md` as agent-authored persistent identity**: The agent explicitly owns and updates its identity file. Long-term memory with first-person authorship.
+- **`SOUL.md` as agent-authored persistent identity**: The agent explicitly owns and updates its soul file. Long-term memory with first-person authorship.
 
 ## 7. Gaps, Risks, and Limitations
 
@@ -192,3 +189,78 @@ cd frontend && npm run dev
 # AUTH_MODE= shared bearer token (single LOCAL_AUTH_TOKEN)local  
 # AUTH_MODE= Clerk JWT with multi-user org supportclerk  
 ```
+
+## 9. What Could Enhance Max
+
+Max is a single-daemon AI orchestrator (TypeScript/Node) running a persistent Copilot SDK session, spawning worker sessions per task, with Telegram/TUI interfaces and SQLite for memory. OpenClaw Mission Control's patterns map onto Max very concretely:
+
+### 9.1 x-llm-intent annotations on Max's own HTTP API
+
+Max exposes an HTTP API on port 7777. Currently agents (orchestrator) decide what to do based on a system message. Adopting OpenClaw's pattern:
+- Add `x-llm-intent`, `x-when-to-use`, `x-routing-policy` fields to Max's Express route definitions (or an OpenAPI spec file)
+- Have Max periodically regenerate an `api/operations.tsv` in its own workspace
+- The orchestrator session can then reason over its own capabilities from a live spec rather than relying solely on its static system message
+- Particularly useful as Max grows more skills and  the spec becomes self-documenting for the agenttools 
+
+### 9.2 Heartbeat loop as structured system-prompt file
+
+OpenClaw's `HEARTBEAT.md` is a Jinja2-rendered markdown file pushed to each agent. Max's  `system-message. is TypeScript code regenerated at session init. Two concrete improvements:ts` equivalent 
+- **Externalize heartbeat instructions to `~/.max/templates/HEARTBEAT.md`**: operators can edit behavior without rebuilding. Currently changing Max's behavior requires code changes.
+- **Inject a `BOARD_RULES.md`-style constraint file**: Max already has `workspace-instructions.ts` which watches for `.github/copilot-instructions.md`; generalizing this to load `~/.max/rules.md` (configurable operator constraints) mirrors OpenClaw's board rule injection exactly.
+
+### 9.3 Agent-authored SOUL.md / MEMORY.md for Max itself
+
+Max has SQLite memory (preferences, facts, projects, routines) written by the orchestrator via tool calls. OpenClaw's pattern is richer:
+- Give Max a `~/.max/SOUL.md` it owns and  a first-person identity file distinct from memory facts. Currently Max's "identity" is locked in `system-message.ts`.updates 
+- Give Max a `~/.max/MEMORY.md` as a distilled long-form memory separate from the SQLite rows. The agent writes to it periodically; the daemon reads it back into the system message.
+- This mirrors OpenClaw's two-layer memory: structured DB rows (board memory) + agent-owned narrative files (SOUL/MEMORY).
+
+### 9.4 Structural approval circuit for high-risk tool calls
+
+ result propagated back. Max has no equivalent; workers run with `approveAll()` from the Copilot SDK (auto-approve everything).
+- Add an approval interceptor in `tools.ts`: when a worker attempts a destructive operation (file delete, git push, package install) above a configurable confidence threshold, pause and route to Telegram/TUI for confirmation before proceeding.
+- Model it as `pending_approvals` in SQLite with status `pending/resolved/rejected` and a resolution RPC back to the worker session.
+- This closes the safety gap Max currently has with `approveAll()`.
+
+### 9.5 Worker role taxonomy (lead/worker split)
+
+Max treats all workers as equivalent. OpenClaw's lead/worker split is useful even in a personal daemon:
+- Designate one long-lived "lead" worker per project/repo that maintains context, owns task assignment, and gates completion. Short-lived workers execute subtasks and report back to it.
+- The lead worker reads `MEMORY.md` for the project; workers get only the task-specific context they need.
+- This maps directly onto Max's existing worker session  it just needs a `is_lead` flag in `worker_sessions` and a coordination message pattern.model 
+
+### 9.6 Ed25519 device identity for worker session continuity
+
+OpenClaw uses persistent Ed25519 key pairs to prove device continuity across reconnections. Max's workers are  killed on timeout and recreated fresh.ephemeral 
+- Persist a per-worker `identity.json` (keypair + session metadata) in `~/.max/sessions/<name>/`
+- On reconnect, pass the identity token to prove continuity and potentially resume a cached session state
+- Reduces cold-start cost for long-running project workers
+
+### 9.7 Inbound webhook channel for Max
+
+OpenClaw boards have HMAC-verified inbound webhooks that route external events to agents. Max has no equivalent inbound trigger beyond Telegram messages and TUI input.
+- Add `POST /webhook/:channel` to Max's Express API with HMAC verification
+ message template
+- This lets external systems (GitHub Actions, CI, cron jobs, other services) push tasks directly into Max without going through Telegram
+- Mirrors OpenClaw's board webhook pattern almost exactly given Max already has an Express server running
+
+### 9.8 Skills as versioned, installable packs
+
+Max already has a skills system (`skills.ts`, `~/.max/skills/`). OpenClaw adds:
+- **Versioned skill packs**: skills have a `version` field and can be upgraded/downgraded; Max currently has no versioning.
+- **Runtime skill install without restart**: OpenClaw installs skills on live agents via `skills.install` RPC. Max reinjects skill content into the system message at session creation. Bridging this: reload skills into the active orchestrator session without killing it.
+- **Skill dependency declarations**: a skill can declare what other skills or tools it requires (e.g., `requires: [jq, curl]`); Max can pre-check before injecting.
+
+### Summary Table
+
+| OpenClaw Pattern | Max Gap | Concrete Change |
+|---|---|---|
+| `x-llm-intent` on API routes | Static system message | Annotate Max's Express routes; expose as `api/operations.tsv` |
+| `HEARTBEAT.md.j2` template | Hardcoded `system-message.ts` | Externalize to `~/.max/templates/HEARTBEAT.md` |
+| `SOUL.md` agent-authored identity | Identity locked in code | Add `~/.max/SOUL.md` read/write by orchestrator |
+| `MEMORY.md` narrative long-term memory | SQLite rows only | Add `~/.max/MEMORY.md` distilled from conversations |
+| Approval circuit | `approveAll()` everywhere | Intercept destructive tool calls; route to Telegram/TUI |
+| Lead/worker role split | All workers equal | `is_lead` flag + coordination messages between workers |
+| Ed25519 session continuity | Ephemeral workers | Persist identity keypair per named worker in `~/.max/sessions/` |
+| Board webhooks | Telegram/TUI only | Add `POST /webhook/:channel` with HMAC to Express API |
+| Versioned skill packs | No versioning | Add `version` field to skill manifests; live-reload support |
