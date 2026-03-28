@@ -7,8 +7,8 @@
 
 ## abhi1693/openclaw-mission-control
 
-- [[abhi1693/openclaw-mission-control/analysis|abhi1693/openclaw-mission-control]] — Analysis of the `abhi1693/openclaw-mission-control` repo covering its agent lifecycle orchestration, hierarchical board/group memory, approval-gated execution, cron scheduling, board webhooks, souls directory, gateway WebSocket RPC protocol, and skills marketplace.
-	- **TL;DR:** A centralized control plane (FastAPI + Next.js) for managing fleets of OpenClaw agents — with strong patterns for human-in-the-loop approvals, multi-scope memory, external webhook triggers, cron-based proactive scheduling, direct chat injection, and agent persona templates from a public souls registry.
+- [[abhi1693/openclaw-mission-control/analysis|abhi1693/openclaw-mission-control]] — Analysis of the `abhi1693/openclaw-mission-control` repo covering its three-tier agent hierarchy, schema-as-agent-interface (x-llm-intent OpenAPI extensions), markdown-as-system-prompt provisioning via Jinja2, multi-scope memory, approval-gated execution, WebSocket gateway RPC, and skills marketplace.
+	- **TL;DR:** A centralized control plane (FastAPI + Next.js) for managing fleets of OpenClaw agents — standout patterns include self-directed OpenAPI discovery filtered by role tag, Jinja2 markdown files as system prompts, agent-authored SOUL.md/MEMORY.md for persistent identity, structural human-in-the-loop approval circuits, and multi-scope memory (board + group + gateway filesystem).
 
 ## paperclipai/companies
 
