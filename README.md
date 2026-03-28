@@ -29,6 +29,11 @@
 
 - [rohitg00/ai-engineering-from-scratch](rohitg00/ai-engineering-from-scratch/analysis.md) — Analysis of the `rohitg00/ai-engineering-from-scratch` repo covering its 260+ lesson AI curriculum, agent loop architecture, multi-agent orchestration patterns, A2A/ACP/ANP protocol gateway, and skill/prompt artifact system.
 	- **TL;DR:** A 260+ lesson open-source AI engineering curriculum (math → multi-agent swarms) where every lesson produces a reusable artifact — prompt template, skill file, or agent definition — with particularly strong implementation depth in agent loops and inter-agent communication protocols.
+## affaan-m/everything-claude-code
+
+- [affaan-m/everything-claude-code](affaan-m/everything-claude-code/analysis.md) — Analysis of the `affaan-m/everything-claude-code` repo covering its 25+ subagent system, 80+ skills, 26+ hook scripts, instinct-based continuous learning, skill-comply eval framework, observer loop prevention, model routing per agent, project-scoped memory, and cross-harness support (Claude Code, Cursor, OpenCode, Codex, Kiro).
+	- **TL;DR:** A complete agent harness performance system (50K+ stars) with standout patterns including confidence-scored instinct extraction from sessions, hook-enforced quality gates, config protection guardrails, LLM-classified behavioral compliance measurement, 5-layer re-entrancy guard for hook loops, and explicit per-agent model routing — evolved over 10+ months of intensive daily use.
+
 ## aiming-lab/AutoResearchClaw
 
 - [aiming-lab/AutoResearchClaw](aiming-lab/AutoResearchClaw/analysis.md) — Analysis of the `aiming-lab/AutoResearchClaw` repo covering its 23-stage linear research pipeline, three multi-agent subsystems (CodeAgent, BenchmarkAgent, FigureAgent), anti-fabrication VerifiedRegistry, dual learning loops (EvolutionStore + MetaClaw skills), and ACP-based CLI agent backends. 
