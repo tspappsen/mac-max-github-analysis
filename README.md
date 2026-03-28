@@ -15,6 +15,11 @@
 - [[paperclipai/companies/analysis|paperclipai/companies]] — Analysis of the `paperclipai/companies` repo covering its agent-company catalog, architecture, workflows, skill system, and key ideas that may be useful for Max.
 	- **TL;DR:** A large catalog of reusable AI company templates for Paperclip, with strong patterns for agent roles, skills, workflows, memory, and multi-agent orchestration that could inspire Max.
 
+## zarazhangrui/follow-builders
+
+- [[zarazhangrui/follow-builders/analysis|zarazhangrui/follow-builders]] — Analysis of the `zarazhangrui/follow-builders` repo covering its SKILL.md-as-system-prompt pattern, two-phase prepare-then-remix architecture, central GitHub Actions feed generation, plain-English customizable prompts, and conversational onboarding flow.
+	- **TL;DR:** An AI agent skill that delivers daily/weekly digests of top AI builders' posts — standout patterns include SKILL.md as the complete agent behavioral spec, a strict separation of deterministic data collection (Node.js → JSON) from LLM remixing, centrally-hosted feeds with zero user API keys required, and 3-tier prompt priority (user-custom > GitHub remote > local default).
+
 ## rohitg00/ai-engineering-from-scratch
 
 - [[rohitg00/ai-engineering-from-scratch/analysis|rohitg00/ai-engineering-from-scratch]] — Analysis of the `rohitg00/ai-engineering-from-scratch` repo covering its 260+ lesson AI curriculum, agent loop architecture, multi-agent orchestration patterns, A2A/ACP/ANP protocol gateway, and skill/prompt artifact system.
