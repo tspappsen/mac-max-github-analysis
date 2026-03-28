@@ -14,3 +14,8 @@
 
 - [[paperclipai/companies/analysis|paperclipai/companies]] — Analysis of the `paperclipai/companies` repo covering its agent-company catalog, architecture, workflows, skill system, and key ideas that may be useful for Max.
 	- **TL;DR:** A large catalog of reusable AI company templates for Paperclip, with strong patterns for agent roles, skills, workflows, memory, and multi-agent orchestration that could inspire Max.
+
+## rohitg00/ai-engineering-from-scratch
+
+- [[rohitg00/ai-engineering-from-scratch/analysis|rohitg00/ai-engineering-from-scratch]] — Analysis of the `rohitg00/ai-engineering-from-scratch` repo covering its 260+ lesson AI curriculum, agent loop architecture, multi-agent orchestration patterns, A2A/ACP/ANP protocol gateway, and skill/prompt artifact system.
+	- **TL;DR:** A 260+ lesson open-source AI engineering curriculum (math → multi-agent swarms) where every lesson produces a reusable artifact — prompt template, skill file, or agent definition — with particularly strong implementation depth in agent loops and inter-agent communication protocols.
