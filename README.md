@@ -20,6 +20,11 @@
 - [[zarazhangrui/follow-builders/analysis|zarazhangrui/follow-builders]] — Analysis of the `zarazhangrui/follow-builders` repo covering its SKILL.md-as-system-prompt pattern, two-phase prepare-then-remix architecture, central GitHub Actions feed generation, plain-English customizable prompts, and conversational onboarding flow.
 	- **TL;DR:** An AI agent skill that delivers daily/weekly digests of top AI builders' posts — standout patterns include SKILL.md as the complete agent behavioral spec, a strict separation of deterministic data collection (Node.js → JSON) from LLM remixing, centrally-hosted feeds with zero user API keys required, and 3-tier prompt priority (user-custom > GitHub remote > local default).
 
+## mattpocock/skills
+
+- [[mattpocock/skills/analysis|mattpocock/skills]] — Analysis of the `mattpocock/skills` repo covering its 15 AI agent skill definitions for Claude Code, semantic dispatch via description-as-routing, progressive disclosure token budgeting, sub-agent fan-out patterns, PreToolUse safety hooks, and meta-skill for skill creation.
+	- **TL;DR:** A curated library of 15 zero-dependency SKILL.md prompt packages for AI coding agents — standout patterns include description-as-dispatcher for semantic routing, progressive disclosure (< 100 line mains with linked deep-reference files), parallel sub-agent fan-out for divergent design, PreToolUse bash hooks for blocking dangerous git ops, and a meta-skill that teaches agents to write conformant skills.
+
 ## rohitg00/ai-engineering-from-scratch
 
 - [[rohitg00/ai-engineering-from-scratch/analysis|rohitg00/ai-engineering-from-scratch]] — Analysis of the `rohitg00/ai-engineering-from-scratch` repo covering its 260+ lesson AI curriculum, agent loop architecture, multi-agent orchestration patterns, A2A/ACP/ANP protocol gateway, and skill/prompt artifact system.
