@@ -29,3 +29,7 @@
 
 - [rohitg00/ai-engineering-from-scratch](rohitg00/ai-engineering-from-scratch/analysis.md) — Analysis of the `rohitg00/ai-engineering-from-scratch` repo covering its 260+ lesson AI curriculum, agent loop architecture, multi-agent orchestration patterns, A2A/ACP/ANP protocol gateway, and skill/prompt artifact system.
 	- **TL;DR:** A 260+ lesson open-source AI engineering curriculum (math → multi-agent swarms) where every lesson produces a reusable artifact — prompt template, skill file, or agent definition — with particularly strong implementation depth in agent loops and inter-agent communication protocols.
+## aiming-lab/AutoResearchClaw
+
+- [aiming-lab/AutoResearchClaw](aiming-lab/AutoResearchClaw/analysis. Analysis of the `aiming-lab/AutoResearchClaw` repo covering its 23-stage linear research pipeline, three multi-agent subsystems (CodeAgent, BenchmarkAgent, FigureAgent), anti-fabrication VerifiedRegistry, dual learning loops (EvolutionStore + MetaClaw skills), and ACP-based CLI agent backends.md) 
+- **TL;DR:** A ~60,700 LOC Python system that autonomously writes full ML research  standout patterns include a whitelisted numeric registry for anti-hallucination, 13-class experiment failure taxonomy with auto-repair, time-decayed evolution store for intra-run learning, and failure-to-SKILL.md conversion for inter-run improvement.papers 
