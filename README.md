@@ -37,4 +37,9 @@
 ## aiming-lab/AutoResearchClaw
 
 - [aiming-lab/AutoResearchClaw](aiming-lab/AutoResearchClaw/analysis.md) — Analysis of the `aiming-lab/AutoResearchClaw` repo covering its 23-stage linear research pipeline, three multi-agent subsystems (CodeAgent, BenchmarkAgent, FigureAgent), anti-fabrication VerifiedRegistry, dual learning loops (EvolutionStore + MetaClaw skills), and ACP-based CLI agent backends. 
-- **TL;DR:** A ~60,700 LOC Python system that autonomously writes full ML research  standout patterns include a whitelisted numeric registry for anti-hallucination, 13-class experiment failure taxonomy with auto-repair, time-decayed evolution store for intra-run learning, and failure-to-SKILL.md conversion for inter-run improvement.papers 
+- **TL;DR:** A ~60,700 LOC Python system that autonomously writes full ML research  standout patterns include a whitelisted numeric registry for anti-hallucination, 13-class experiment failure taxonomy with auto-repair, time-decayed evolution store for intra-run learning, and failure-to-SKILL.md conversion for inter-run improvement.papers
+
+## AnganSamadder/opentmux
+
+- [AnganSamadder/opentmux](AnganSamadder/opentmux/analysis.md) — Analysis of the `AnganSamadder/opentmux` repo covering its event-driven tmux pane orchestration for OpenCode agents, session lifecycle hooks, multi-port agent support, and graceful degradation patterns.
+	- **TL;DR:** An agent-agnostic OpenCode plugin that auto-spawns tmux panes per sub-agent for live execution visualization — no LLM calls, purely a DX/observability layer with clean event subscription patterns and multi-port parallel agent support.
