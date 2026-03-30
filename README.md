@@ -39,6 +39,11 @@
 - [aiming-lab/AutoResearchClaw](aiming-lab/AutoResearchClaw/analysis.md) — Analysis of the `aiming-lab/AutoResearchClaw` repo covering its 23-stage linear research pipeline, three multi-agent subsystems (CodeAgent, BenchmarkAgent, FigureAgent), anti-fabrication VerifiedRegistry, dual learning loops (EvolutionStore + MetaClaw skills), and ACP-based CLI agent backends. 
 - **TL;DR:** A ~60,700 LOC Python system that autonomously writes full ML research  standout patterns include a whitelisted numeric registry for anti-hallucination, 13-class experiment failure taxonomy with auto-repair, time-decayed evolution store for intra-run learning, and failure-to-SKILL.md conversion for inter-run improvement.papers
 
+## oh-my-mermaid/oh-my-mermaid
+
+- [oh-my-mermaid/oh-my-mermaid](oh-my-mermaid/oh-my-mermaid/analysis.md) — Analysis of the `oh-my-mermaid/oh-my-mermaid` repo covering its skill-as-prompt agent pattern, recursive perspective-based architecture scanner, filesystem-as-data-model storage, CLI-as-AI-output-materializer design, 7-field structured element schema, and multi-platform AI tool integration.
+	- **TL;DR:** A zero-LLM-dependency CLI tool that turns AI-coded black-box codebases into navigable Mermaid architecture docs — standout patterns include shipping agentic workflows as markdown skill files that register into any AI coding tool, the AI calling deterministic shell commands (`omm write`) to materialize its analysis, and a recursive drill-down prompt that produces deep nested architecture trees in one pass.
+
 ## AnganSamadder/opentmux
 
 - [AnganSamadder/opentmux](AnganSamadder/opentmux/analysis.md) — Analysis of the `AnganSamadder/opentmux` repo covering its event-driven tmux pane orchestration for OpenCode agents, session lifecycle hooks, multi-port agent support, and graceful degradation patterns.
