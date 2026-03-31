@@ -1,5 +1,10 @@
 # Study Index
 
+## fainir/most-capable-agent-system-prompt
+
+- [fainir/most-capable-agent-system-prompt](fainir/most-capable-agent-system-prompt/analysis.md) — Analysis of the `fainir/most-capable-agent-system-prompt` repo covering its 3,228-line system prompt for building a self-improving agentic OS, 12-layer architecture (A–L), capability acquisition ladder, specialized harness library, momentum queue system, one-change eval loop, external intelligence pipeline, and fractal interface model.
+	- **TL;DR:** A single ~125KB system prompt — no code, just paste into any coding agent — that instructs the agent to architect and build a maximally capable self-improving agentic OS from scratch. Standout patterns: explicit 12-layer architecture (control plane, task graph, skill profiles, 8-type memory, model routing, governance, eval engine, self-improvement, observability, context management), 10-rung capability acquisition ladder, 9 specialized harness archetypes as state machines, 5-queue momentum system, one-change-eval-loop for safe self-modification, and an external intelligence loop with explicit ingestion filters.
+
 ## jayminwest/seeds
 
 - [jayminwest/seeds](jayminwest/seeds/analysis.md) — Analysis of the `jayminwest/seeds` repo covering its git-native JSONL issue tracker, AI-agent-first CLI design, concurrency model, template system, and os-eco ecosystem integration.
