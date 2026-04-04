@@ -49,6 +49,11 @@
 - [oh-my-mermaid/oh-my-mermaid](oh-my-mermaid/oh-my-mermaid/analysis.md) — Analysis of the `oh-my-mermaid/oh-my-mermaid` repo covering its skill-as-prompt agent pattern, recursive perspective-based architecture scanner, filesystem-as-data-model storage, CLI-as-AI-output-materializer design, 7-field structured element schema, and multi-platform AI tool integration.
 	- **TL;DR:** A zero-LLM-dependency CLI tool that turns AI-coded black-box codebases into navigable Mermaid architecture docs — standout patterns include shipping agentic workflows as markdown skill files that register into any AI coding tool, the AI calling deterministic shell commands (`omm write`) to materialize its analysis, and a recursive drill-down prompt that produces deep nested architecture trees in one pass.
 
+## breferrari/obsidian-mind
+
+- [breferrari/obsidian-mind](breferrari/obsidian-mind/analysis.md) — Analysis of the `breferrari/obsidian-mind` repo covering its Claude Code configuration-as-external-brain pattern, five lifecycle hooks (session start context injection, regex message classification, post-write frontmatter validation, pre-compact transcript backup, stop checklist), 9 subagents with YAML frontmatter declarations, 15 slash commands, vault-first memory with git-tracked markdown, and wikilink-based knowledge graph.
+	- **TL;DR:** Not a software project — it's a complete Claude Code *configuration system* that turns an Obsidian vault into Claude's persistent external brain. Standout patterns include hook-driven warm context injection at session start, per-message regex classification emitting `additionalContext` routing hints, post-write schema validation for frontmatter and wikilinks, two-mode agent design (classify-then-execute), and `description` frontmatter for progressive disclosure.
+
 ## AnganSamadder/opentmux
 
 - [AnganSamadder/opentmux](AnganSamadder/opentmux/analysis.md) — Analysis of the `AnganSamadder/opentmux` repo covering its event-driven tmux pane orchestration for OpenCode agents, session lifecycle hooks, multi-port agent support, and graceful degradation patterns.
